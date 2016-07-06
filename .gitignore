@@ -1,3 +1,4 @@
 flask/
 *.pyc
 db_repository/
+tmp/
