@@ -2,3 +2,4 @@ flask/
 *.pyc
 db_repository/
 tmp/
+search.db/
