@@ -5,3 +5,4 @@ tmp/
 search.db/
 bootstrap/
 app.db.orig
+app.db
