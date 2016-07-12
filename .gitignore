@@ -4,4 +4,4 @@ db_repository/
 tmp/
 search.db/
 bootstrap/
-app.db
+app.db.orig
