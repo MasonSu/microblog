@@ -16,8 +16,9 @@ followers = db.Table('followers',
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nickname = db.Column(db.String(64), index=True, unique=True)
+    username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
+    pwhash = db.Column(db.String(256))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime)
@@ -39,6 +40,11 @@ class User(db.Model):
     @property
     def is_anonymous(self):
         return False
+
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.pwhash = password
 
     def get_id(self):
         try:
@@ -63,22 +69,22 @@ class User(db.Model):
         return Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(followers.c.follower_id == self.id).order_by(Post.timestamp.desc())
                     
     @staticmethod
-    def make_unique_nickname(nickname):
-        if User.query.filter_by(nickname=nickname).first() is None:
-            return nickname
+    def make_unique_username(username):
+        if User.query.filter_by(username=username).first() is None:
+            return username
         version = 2
         while True:
-            new_nickname = nickname + str(version)
-            if User.query.filter_by(nickname=new_nickname).first() is None:
+            new_username = username + str(version)
+            if User.query.filter_by(username=new_username).first() is None:
                 break
             version += 1
-        return new_nickname
+        return new_username
 
     def avatar(self, size):
         return 'http://www.gravatar.com/avatar/%s?d=wavatar&s=%d' % (md5(self.email.encode('utf-8')).hexdigest(), size)
 
     def __repr__(self):
-        return '<User %r>' % (self.nickname)
+        return '<User %r>' % (self.username)
 
 class Post(db.Model):
     __searchable__ = ['body']
