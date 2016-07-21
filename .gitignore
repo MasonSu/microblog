@@ -6,3 +6,6 @@ search.db/
 bootstrap/
 app.db.orig
 app.db
+app/microblog.sublime-project
+app/microblog.sublime-workspace
+test/
