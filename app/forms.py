@@ -1,6 +1,10 @@
 from flask_wtf import Form
 from wtforms import StringField, BooleanField, TextAreaField
+<<<<<<< HEAD
 from wtforms.validators import InputRequired, DataRequired, Length
+=======
+from wtforms.validators import InputRequired, DataRequired, Length
+>>>>>>> ea24df736fae7a37b7fc00b880d343729e0942bd
 from app.models import User
 
 class RegisterForm(Form):
