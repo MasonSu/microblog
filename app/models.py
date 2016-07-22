@@ -81,6 +81,8 @@ class User(db.Model):
         return new_username
 
     def avatar(self, size):
+        #return 'http://www.gravatar.com/avatar/%s?d=identicon&s=%d' % \
+        (md5(self.email.strip().lower().encode('utf-8')).hexdigest(), size)
         return 'http://www.gravatar.com/avatar/%s?d=wavatar&s=%d' % (md5(self.email.encode('utf-8')).hexdigest(), size)
 
     def __repr__(self):
